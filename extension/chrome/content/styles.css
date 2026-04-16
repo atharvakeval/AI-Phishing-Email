@@ -1,0 +1,190 @@
+/* ============================================================
+   styles.css  —  Styling for the Phishing Detector extension
+   This file controls how our badges and banners LOOK
+   ============================================================ */
+
+
+/* ────────────────────────────────────────────────────────────
+   1. The floating SCAN button (appears on open emails)
+   ──────────────────────────────────────────────────────────── */
+
+#phish-scan-btn {
+    /* Fix the button to the bottom-right corner of the screen */
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+
+    /* Make sure it appears on top of everything */
+    z-index: 999999;
+
+    /* Button colors and style */
+    background: #1a73e8;   /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 24px;   /* Rounded pill shape */
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+
+    /* Add a shadow so it stands out */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    /* Smooth animation on hover */
+    transition: background 0.2s;
+}
+
+/* When mouse hovers over button */
+#phish-scan-btn:hover {
+    background: #1558b0;   /* Darker blue on hover */
+}
+
+/* When button is disabled (loading) */
+#phish-scan-btn:disabled {
+    background: #aaaaaa;   /* Gray when disabled */
+    cursor: not-allowed;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   2. The result BANNER (appears at top of open email)
+   ──────────────────────────────────────────────────────────── */
+
+.phish-banner {
+    margin: 8px 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* RED banner — dangerous/phishing email */
+.phish-danger {
+    background: #fce8e6;       /* Light red background */
+    border: 2px solid #d93025; /* Dark red border */
+    color: #b31412;            /* Dark red text */
+}
+
+/* YELLOW banner — suspicious email */
+.phish-warn {
+    background: #fef7e0;       /* Light yellow background */
+    border: 2px solid #f9ab00; /* Orange border */
+    color: #7d4e00;            /* Brown text */
+}
+
+/* GREEN banner — safe email */
+.phish-safe {
+    background: #e6f4ea;       /* Light green background */
+    border: 2px solid #34a853; /* Green border */
+    color: #1e6b38;            /* Dark green text */
+}
+
+/* The top row of the banner (icon + title + confidence + close button) */
+.phish-banner-header {
+    display: flex;             /* Place items in a row */
+    align-items: center;       /* Vertically center them */
+    gap: 8px;                  /* Space between items */
+    margin-bottom: 6px;
+}
+
+.phish-icon {
+    font-size: 20px;           /* Make the emoji bigger */
+}
+
+.phish-confidence {
+    margin-left: auto;         /* Push to the right side */
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* The X close button */
+.phish-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.6;
+    padding: 0 4px;
+}
+
+.phish-close:hover {
+    opacity: 1;
+}
+
+/* Explanation text inside banner */
+.phish-explanation {
+    margin: 4px 0;
+    line-height: 1.4;
+}
+
+/* The bullet list of warning indicators */
+.phish-indicators {
+    margin: 6px 0 0 16px;
+    padding: 0;
+}
+
+.phish-indicators li {
+    margin-bottom: 3px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   3. Risk BADGES on email list rows (hover feature)
+   ──────────────────────────────────────────────────────────── */
+
+/* The table cell we add to Gmail rows */
+.phish-badge-td {
+    width: 28px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 4px !important;  /* Override Gmail's padding */
+}
+
+/* The badge itself (the emoji circle) */
+.phish-row-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;          /* Make it circular */
+    cursor: default;             /* Don't show pointer cursor */
+    user-select: none;           /* Don't let user select the emoji */
+}
+
+/* For Outlook — positioned inside the row */
+.phish-badge-overlay {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center it */
+    z-index: 9999;
+}
+
+/* Loading animation — badge pulses while scanning */
+.phish-badge-scanning {
+    animation: pulse 1s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+/* The pulse animation keyframes */
+@keyframes pulse {
+    0%   { opacity: 0.4; }
+    50%  { opacity: 1.0; }
+    100% { opacity: 0.4; }
+}
+
+/* Colored glow for each risk level */
+.phish-badge-red {
+    filter: drop-shadow(0 0 4px rgba(217, 48, 37, 0.6));
+}
+
+.phish-badge-yellow {
+    filter: drop-shadow(0 0 4px rgba(249, 171, 0, 0.6));
+}
+
+.phish-badge-green {
+    filter: drop-shadow(0 0 4px rgba(52, 168, 83, 0.5));
+}
